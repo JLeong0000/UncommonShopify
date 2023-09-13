@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@shopify/hydrogen": "^2023.7.3"
+  }
+}
