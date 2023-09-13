@@ -25,10 +25,7 @@ export default function Homepage() {
   return (
     <>
       <img src="../../public/Photos/TUCM-PS1.jpg" />
-      <CollectionsGrid
-        collections={collections.edges}
-        key={collections.edges.id}
-      />
+      <CollectionsGrid collections={collections.edges} />
       <h1>/////////////////////////////////////</h1>
       <img src="../../public/Photos/TUCM-PS2.jpg" alt="" />
       <div>
@@ -64,7 +61,7 @@ function CollectionsGrid({collections}) {
     <div>
       {collections.map((collection, index) => {
         return (
-          <div>
+          <div key={index}>
             <h1>{collection.node.title}</h1>
             <p>{collection.node.description}</p>
             <ProductsGrid products={collection.node.products.edges} />
