@@ -102,7 +102,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-gray-800">
+      <body>
         <Layout {...data} className="max-w-6xl">
           <Outlet />
         </Layout>

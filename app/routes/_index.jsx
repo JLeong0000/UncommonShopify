@@ -29,12 +29,16 @@ export default function Homepage() {
   const [isOpen1, setOpen1] = useState(false);
   const [isOpen2, setOpen2] = useState(false);
   return (
-    <div className="w-4/6 justify-center p-0">
-      <img src={tucmPs7} className="m:w-[1500px}" />
-      <CollectionsGrid collections={collections.edges} />
-      <h1>/////////////////////////////////////</h1>
+    <div className="max-w-[1200px] p-0">
+      <section>
+        <figure className="w-full flex justify-center items-center">
+          <img src={tucmPs7} className="w-full " />
+        </figure>
+        <CollectionsGrid collections={collections.edges} />
+      </section>
+      <span>/////////////////////////////////////</span>
       <img src={tucmPs2} alt="" />
-      <div>
+      <section>
         <p>icon</p>
         <div>
           <h2>Multi-Layer Technology</h2>
@@ -57,8 +61,8 @@ export default function Homepage() {
             withstand long marches and hikes.
           </p>
         </div>
-      </div>
-      <div>
+      </section>
+      <section>
         <h1>FAQs</h1>
         <div>
           <h1 onClick={() => setOpen1((prev) => !prev)}>Shipping</h1>
@@ -137,7 +141,7 @@ export default function Homepage() {
             </div>
           )}
         </div>
-      </div>
+      </section>
     </div>
   );
 }

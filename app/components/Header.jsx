@@ -5,7 +5,7 @@ export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   return (
     <header className="bg-red-400 py-6">
-      <div className="container flex items-center justify-between px-4 mx-auto">
+      <div className="container flex items-center justify-between px-4 mx-auto max-w-[1080px]">
         <div className="flex space-x-10 font-inter font-medium">
           <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
             <strong>{shop.name}</strong>
