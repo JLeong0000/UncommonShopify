@@ -1,6 +1,5 @@
 import {json} from '@shopify/remix-oxygen';
-import {Await, useLoaderData, Link} from '@remix-run/react';
-import {Suspense} from 'react';
+import {useLoaderData, Link} from '@remix-run/react';
 import {
   Image,
   Money,
@@ -8,7 +7,12 @@ import {
   getSelectedProductOptions,
   CartForm,
 } from '@shopify/hydrogen';
-import {getVariantUrl} from '~/utils';
+import {useVariantUrl} from '~/utils';
+import {useState} from 'react';
+
+// Image import
+import tucmPs7 from '../public/Photos/TUCM-PS7.jpg';
+import tucmPs2 from '../public/Photos/TUCM-PS2.jpg';
 
 export const meta = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -22,12 +26,14 @@ export async function loader({context, request}) {
 
 export default function Homepage() {
   const {collections} = useLoaderData();
+  const [isOpen1, setOpen1] = useState(false);
+  const [isOpen2, setOpen2] = useState(false);
   return (
-    <>
-      <img src="../../public/Photos/TUCM-PS1.jpg" />
+    <div className="w-4/6 justify-center p-0">
+      <img src={tucmPs7} className="m:w-[1500px}" />
       <CollectionsGrid collections={collections.edges} />
       <h1>/////////////////////////////////////</h1>
-      <img src="../../public/Photos/TUCM-PS2.jpg" alt="" />
+      <img src={tucmPs2} alt="" />
       <div>
         <p>icon</p>
         <div>
@@ -52,7 +58,87 @@ export default function Homepage() {
           </p>
         </div>
       </div>
-    </>
+      <div>
+        <h1>FAQs</h1>
+        <div>
+          <h1 onClick={() => setOpen1((prev) => !prev)}>Shipping</h1>
+          {isOpen1 && (
+            <div>
+              <h3>Do you ship internationally?</h3>
+              <p>
+                Unfortunately not yet {':('} We want to solidify our operations
+                for now!
+              </p>
+              <h3>What is my delivery cost?</h3>
+              <p>
+                We offer door-to-door delivery at $3.50 for all local orders.
+                You will enjoy free shipping above SGD60 spend!
+              </p>
+              <h3>How long will it take to get my order?</h3>
+              <p>
+                We're excited for you to receive your socks too! It will take
+                4-6 working days to arrive at doorstep the moment you place an
+                order with us {':)'}
+              </p>
+            </div>
+          )}
+        </div>
+        <div>
+          <h1 onClick={() => setOpen2((prev) => !prev)}>Orders</h1>
+          {isOpen2 && (
+            <div>
+              <h3>Can I cancel my order?</h3>
+              <p>
+                Please double check your order before checking out as order
+                cancellations or changes are not allowed in order to streamline
+                our operations. As we want our customers to receive their orders
+                as soon as possible, the fulfilment process begins the moment an
+                order is received. It would be difficult for us to cancel your
+                order in time.
+              </p>
+              <h3>Can I return my product?</h3>
+              <p>
+                If you change your mind within 14 days of receiving your socks,
+                email us at theuncommonlevel@gmail.com and we're happy to help.
+                Please ensure that the item is in its original condition and
+                packaging in order for the refund to be processed. Shipping
+                costs will be borne by the customer unless in the case of
+                defects.
+              </p>
+              <h3>Can I exchange my product?</h3>{' '}
+              <p>
+                Due to logistical reasons, we are unable to provide one to one
+                exchanges for now. We recommend returning your item and placing
+                a new order {':)'}
+              </p>
+              <h3>I received a defective item. Can I get a refund?</h3>{' '}
+              <p>
+                We're so so sorry if you received a defective piece! In that
+                case, please email us at theuncommonlevel@gmail.com within 14
+                working days from date of receipt and we will send you a
+                replacement piece. If there are no more stocks, we will issue
+                you a full refund.{' '}
+                <p>
+                  Email details:
+                  <br />
+                  Your order number: #<br />
+                  The name of the defective item: e.g. calf/crew socks
+                  <br />
+                  Photograph of the defect:
+                </p>
+              </p>
+              <h3>How do I take care of my socks?</h3>{' '}
+              <p>
+                It works like a pair of regular socks but here are some things
+                you can take note: Please DO NOT bleach or iron to prevent the
+                waterproof membrane from being damaged Drip dry while inverted
+                for fastest drying time.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -92,11 +178,13 @@ function ProductsGrid({products}) {
 }
 
 function ProductItem({product, loading}) {
+  const variant = product.variants.nodes[0];
+  const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
   return (
     <Link
       key={product.id}
       prefetch="intent"
-      to={product.featuredImage.url}
+      to={variantUrl}
       className="inline-block"
     >
       {product.featuredImage && (
@@ -121,8 +209,8 @@ const COLLECTIONS_QUERY = `#graphql
   collections(first:2) {
     edges {
       node {
-        id
         title
+        id
         description
        products(first:2){
          edges{
@@ -130,19 +218,28 @@ const COLLECTIONS_QUERY = `#graphql
              id
              title
              handle
+             priceRange {
+               minVariantPrice {
+                 amount
+                 currencyCode
+               }
+             }
              featuredImage {
                url
+               altText
              }
-             priceRange {
-              minVariantPrice {
-                amount
-                currencyCode
-              }
-            }
+             variants(first: 1){
+               nodes{
+                 selectedOptions{
+                   name
+                   value
+                 }
+               }
+             }
            }
          }
        }
       }
     }
   }
-}`;
+ }`;

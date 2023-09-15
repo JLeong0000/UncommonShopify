@@ -5,4 +5,18 @@ import typographyPlugin from '@tailwindcss/typography';
 export default {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
   plugins: [formsPlugin, typographyPlugin],
+  theme: {
+    fontFamily: {
+      inter: ['Inter', 'san-serif'],
+      bebasneue: ['"Bebas Neue"', 'san-serif'],
+    },
+    extend: {
+      colors: {
+        darkGrey: '#131313',
+      },
+      backgroundImage: {
+        'my-image': 'url(./public/Dirt texture.jpg)',
+      },
+    },
+  },
 };

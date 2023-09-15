@@ -11,7 +11,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
 } from '@remix-run/react';
-import favicon from '../public/favicon.svg';
+import favicon from './public/favicon.svg';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
 import {Layout} from '~/components/Layout';
@@ -102,8 +102,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <Layout {...data}>
+      <body className="bg-gray-800">
+        <Layout {...data} className="max-w-6xl">
           <Outlet />
         </Layout>
         <ScrollRestoration />
