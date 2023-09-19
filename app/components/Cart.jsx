@@ -21,7 +21,7 @@ function CartDetails({layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
-    <div className="cart-details">
+    <div className="flex flex-col text-black">
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
@@ -65,7 +65,7 @@ function CartLineItem({layout, line}) {
         />
       )}
 
-      <div>
+      <div className="font-inter">
         <Link
           prefetch="intent"
           to={lineItemUrl}
@@ -76,14 +76,12 @@ function CartLineItem({layout, line}) {
             }
           }}
         >
-          <p>
-            <strong>{product.title}</strong>
-          </p>
+          <p className="font-bold">{product.title}</p>
         </Link>
         <CartLinePrice line={line} as="span" />
         <ul>
           {selectedOptions.map((option) => (
-            <li key={option.name}>
+            <li key={option.name} className="m-0">
               <small>
                 {option.name}: {option.value}
               </small>
@@ -102,7 +100,7 @@ function CartCheckoutActions({checkoutUrl}) {
   return (
     <div>
       <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+        <p className="font-inter font-semibold">Continue to Checkout &rarr;</p>
       </a>
       <br />
     </div>
@@ -114,10 +112,10 @@ export function CartSummary({cost, layout, children = null}) {
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
 
   return (
-    <div aria-labelledby="cart-summary" className={className}>
+    <div aria-labelledby="cart-summary" className="font-inter">
       <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
+      <dl className="cart-subtotal text-sm">
+        <dt className="me-3">Subtotal</dt>
         <dd>
           {cost?.subtotalAmount?.amount ? (
             <Money data={cost?.subtotalAmount} />
@@ -138,7 +136,9 @@ function CartLineRemoveButton({lineIds}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button type="submit">Remove</button>
+      <button type="submit" className="text-sm">
+        Remove
+      </button>
     </CartForm>
   );
 }
@@ -150,7 +150,7 @@ function CartLineQuantity({line}) {
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
-    <div className="cart-line-quantiy">
+    <div className="flex flex-row mt-1 items-center">
       <small>Quantity: {quantity} &nbsp;&nbsp;</small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
@@ -199,9 +199,9 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
 
 export function CartEmpty({hidden = false, layout = 'aside'}) {
   return (
-    <div hidden={hidden}>
+    <div hidden={hidden} className="font-inter">
       <br />
-      <p>
+      <p className="text-black">
         Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
         started!
       </p>

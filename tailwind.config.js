@@ -14,9 +14,6 @@ export default {
       colors: {
         darkGrey: '#131313',
       },
-      backgroundImage: {
-        image: "url('./public/Dirt texture.jpg')",
-      },
     },
   },
 };

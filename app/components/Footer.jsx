@@ -1,5 +1,8 @@
 import {useMatches, NavLink} from '@remix-run/react';
 
+// image import
+import insta from '../public/icons/instagram.svg';
+
 export function Footer({menu}) {
   return (
     <footer className="footer">
@@ -12,22 +15,24 @@ function FooterMenu() {
   const [root] = useMatches();
   const publicStoreDomain = root?.data?.publicStoreDomain;
   return (
-    <nav role="navigation">
-      <div className="text-white">
-        <h3>Contact us</h3>
-        <a href="mailto: theuncommonlevel@gmail.com" className="text-white">
-          theuncommonlevel@gmail.com
-        </a>
-      </div>
-      <div className="text-white">
-        <h3>Social Media</h3>
-        <a
-          href="https://www.instagram.com/theuncommonlevel/"
-          className="text-white"
-        >
-          insta icon
-        </a>
-      </div>
+    <nav role="navigation" className="h-[218px] w-full bg-darkGrey pt-2 pb-38">
+      <section className="flex-row">
+        <div className="inline-block mx-16">
+          <h3 className="font-inter font-bold mb-1">Contact us</h3>
+          <a
+            href="mailto: theuncommonlevel@gmail.com"
+            className="text-white font-inter"
+          >
+            theuncommonlevel@gmail.com
+          </a>
+        </div>
+        <div className="inline-block mx-16 align-top">
+          <h3 className="font-inter font-bold mb-1">Social Media</h3>
+          <a href="https://www.instagram.com/theuncommonlevel/">
+            <img src={insta} alt="" className="" />
+          </a>
+        </div>
+      </section>
     </nav>
   );
 }

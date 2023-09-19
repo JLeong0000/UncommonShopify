@@ -14,7 +14,9 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     <>
       <CartAside cart={cart} />
       <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
-      <main className="bg-red-400">{children}</main>
+      <main className="m-0 p-0 bg-[url('../public/dirtTexture.jpg')] object-contain">
+        {children}
+      </main>
       <Suspense>
         <Await resolve={footer}>
           {(footer) => <Footer menu={footer.menu} />}

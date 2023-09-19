@@ -1,4 +1,4 @@
-import {Suspense} from 'react';
+import {Fragment, Suspense, useState} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
 
@@ -10,10 +10,17 @@ import {
   CartForm,
 } from '@shopify/hydrogen';
 import {getVariantUrl} from '~/utils';
+import FaqProduct from '~/components/FaqProduct';
 
 export const meta = ({data}) => {
   return [{title: `Hydrogen | ${data.product.title}`}];
 };
+
+// image import
+import shirt from '../public/icons/shirt.svg';
+import cloth from '../public/icons/Cloth.svg';
+import truck from '../public/icons/truck.svg';
+import heart from '../public/icons/heart.svg';
 
 export async function loader({params, request, context}) {
   const {handle} = params;
@@ -92,7 +99,7 @@ export default function Product() {
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
   return (
-    <div className="product">
+    <div className="flex flex-col justify-center items-center lg:flex-row lg:items-start">
       <ProductImage image={selectedVariant?.image} />
       <ProductMain
         selectedVariant={selectedVariant}
@@ -108,25 +115,25 @@ function ProductImage({image}) {
     return <div className="product-image" />;
   }
   return (
-    <div className="product-image">
+    <div className="container justify-center mx-5 max-w-[550px]">
       <Image
         alt={image.altText || 'Product Image'}
         aspectRatio="1/1"
         data={image}
         key={image.id}
-        sizes="(min-width: 45em) 50vw, 100vw"
       />
     </div>
   );
 }
 
 function ProductMain({selectedVariant, product, variants}) {
-  const {title, descriptionHtml} = product;
+  const {title, description} = product;
   return (
-    <div className="product-main">
-      <h1>{title}</h1>
+    <div className="mx-5 items-center lg:max-w-[550px]">
+      <h1 className="flex justify-center font-bebasneue font-normal text-4xl tracking-wider m-0 mt-14">
+        {title}
+      </h1>
       <ProductPrice selectedVariant={selectedVariant} />
-      <br />
       <Suspense
         fallback={
           <ProductForm
@@ -149,21 +156,110 @@ function ProductMain({selectedVariant, product, variants}) {
           )}
         </Await>
       </Suspense>
-      <br />
-      <br />
-      <p>
-        <strong>Description</strong>
-      </p>
-      <br />
-      <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-      <br />
+      <p className="font-inter font-light">{description}</p>
+      <section className="w-full my-4">
+        <FaqProduct
+          icon={shirt}
+          title="Size Chart"
+          sub={
+            <Fragment>
+              <table className="border-2 font-inter justify-center text-center">
+                <tr>
+                  <td className="w-28 p-1 border border-gray-400">
+                    Socks Size
+                  </td>
+                  <td className="w-28 p-1 border border-gray-400">EURO</td>
+                  <td className="w-28 p-1 border border-gray-400">US</td>
+                </tr>
+                <tr>
+                  <td className=" w-28 p-1 border border-gray-400 font-extralight">
+                    S
+                  </td>
+                  <td className=" w-28 p-1 border border-gray-400 font-extralight">
+                    36-38
+                  </td>
+                  <td className=" w-28 p-1 border border-gray-400 font-extralight">
+                    4-6
+                  </td>
+                </tr>
+                <tr>
+                  <td className=" w-28 p-1 border border-gray-400 font-extralight">
+                    M
+                  </td>
+                  <td className=" w-28 p-1 border border-gray-400 font-extralight">
+                    39-42
+                  </td>
+                  <td className=" w-28 p-1 border border-gray-400 font-extralight">
+                    6.5-9
+                  </td>
+                </tr>
+                <tr>
+                  <td className=" w-28 p-1 border border-gray-400 font-extralight">
+                    L
+                  </td>
+                  <td className=" w-28 p-1 border border-gray-400 font-extralight">
+                    43-46
+                  </td>
+                  <td className=" w-28 p-1 border border-gray-400 font-extralight">
+                    9.5-12
+                  </td>
+                </tr>
+              </table>
+            </Fragment>
+          }
+        />
+        <FaqProduct
+          icon={cloth}
+          title="Materials"
+          sub={
+            <Fragment>
+              Inner: 66% coolmax, 30% polyester, 7% elastane <br />
+              Middle: Waterproof membrane
+              <br />
+              Outer: 93% Nylon, 7% Elastane
+            </Fragment>
+          }
+        />
+        <FaqProduct
+          icon={truck}
+          title="Shipping & Returns"
+          sub={
+            <Fragment>
+              Local delivery of $3.50 will take around 4-6 days to reach you the
+              moment you placed an order. <br />
+              <br />
+              Please double check your order before checking out as order
+              cancellations or changes are <strong>not allowed</strong> in order
+              to streamline our operations. As we want our customers to receive
+              their orders as soon as possible, the fulfilment process begins
+              the moment an order is received. It would be difficult for us to
+              cancel your order in time.
+            </Fragment>
+          }
+        />
+        <FaqProduct
+          icon={heart}
+          title="Care Instructions"
+          sub={
+            <Fragment>
+              <ul className="list-disc px-4">
+                <li>Hand wash or machine wash</li>
+                <li>Drip dry while inverted for fastest drying time</li>
+                <li>
+                  <strong>DO NOT</strong> bleach or iron
+                </li>
+              </ul>
+            </Fragment>
+          }
+        />
+      </section>
     </div>
   );
 }
 
 function ProductPrice({selectedVariant}) {
   return (
-    <div className="product-price">
+    <div className="flex justify-center font-inter font-light text-lg my-1">
       {selectedVariant?.compareAtPrice ? (
         <>
           <p>Sale</p>
@@ -183,8 +279,16 @@ function ProductPrice({selectedVariant}) {
 }
 
 function ProductForm({product, selectedVariant, variants}) {
+  const [counter, setCounter] = useState(1);
+  const increment = () => setCounter(counter + 1);
+  let decrement = () => setCounter(counter - 1);
+  if (counter <= 0) {
+    setCounter(1);
+  }
+  let quantity = Number(counter);
+
   return (
-    <div className="product-form">
+    <div className="flex flex-col items-center">
       <VariantSelector
         handle={product.handle}
         options={product.options}
@@ -192,45 +296,56 @@ function ProductForm({product, selectedVariant, variants}) {
       >
         {({option}) => <ProductOptions key={option.name} option={option} />}
       </VariantSelector>
-      <br />
-      <AddToCartButton
-        disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={() => {
-          window.location.href = window.location.href + '#cart-aside';
-        }}
-        lines={
-          selectedVariant
-            ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: 1,
-                },
-              ]
-            : []
-        }
-      >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
-      </AddToCartButton>
+      <h5 className="text-sm my-2 italic">Quantity</h5>
+      <div className="flex flex-row items-center border-solid border-white border-[1px] w-max">
+        <button onClick={decrement} className="p-2 mx-2">
+          -
+        </button>
+        <p className="mx-20">{counter}</p>
+        <button onClick={increment} className="p-2 mx-2">
+          +
+        </button>
+      </div>
+      <section className="flex justify-center font-inter text-black bg-white my-14 mx-0 p-3 w-full hover:bg-gray-300">
+        <AddToCartButton
+          disabled={!selectedVariant || !selectedVariant.availableForSale}
+          onClick={() => {
+            window.location.href = window.location.href + '#cart-aside';
+          }}
+          lines={
+            selectedVariant
+              ? [
+                  {
+                    merchandiseId: selectedVariant.id,
+                    quantity: counter,
+                  },
+                ]
+              : []
+          }
+        >
+          {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
+        </AddToCartButton>
+      </section>
     </div>
   );
 }
 
 function ProductOptions({option}) {
   return (
-    <div className="product-options" key={option.name}>
-      <h5>{option.name}</h5>
-      <div className="product-options-grid">
+    <div className="flex flex-col font-inter font-light" key={option.name}>
+      <h5 className="flex text-sm my-2 italic justify-center">{option.name}</h5>
+      <div className="flex flex-row flex-wrap space-x-1 space-y-1 justify-center">
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return (
             <Link
-              className="product-options-item"
+              className="text-white px-4 m-0"
               key={option.name + value}
               prefetch="intent"
               preventScrollReset
               replace
               to={to}
               style={{
-                border: isActive ? '1px solid black' : '1px solid transparent',
+                border: isActive ? '1px solid white' : '1px solid transparent',
                 opacity: isAvailable ? 1 : 0.3,
               }}
             >
@@ -248,7 +363,7 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
   return (
     <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
-        <>
+        <div>
           <input
             name="analytics"
             type="hidden"
@@ -261,7 +376,7 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
           >
             {children}
           </button>
-        </>
+        </div>
       )}
     </CartForm>
   );

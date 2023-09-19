@@ -1,34 +1,27 @@
 import {Await, NavLink, useMatches} from '@remix-run/react';
 import {Suspense} from 'react';
 
+// image import
+import cart from '../public/icons/Cart.svg';
+
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   return (
-    <header className="bg-red-400 py-6">
-      <div className="container flex items-center justify-between px-4 mx-auto max-w-[1080px]">
-        <div className="flex space-x-10 font-inter font-medium">
+    <header className="bg-darkGrey py-6">
+      <div className="flex items-center justify-between px-4 mx-auto max-w-[1080px]">
+        <div className="flex space-x-10">
           <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-            <strong>{shop.name}</strong>
+            <strong className="text-white font-bebas uppercase">
+              {shop.name}
+            </strong>
           </NavLink>
-          <HeaderMenu menu={menu} />
+          <NavLink prefetch="intent" style={activeLinkStyle} to="/ourStory">
+            <span className="text-white font-inter font-medium">Our Story</span>
+          </NavLink>
         </div>
         <HeaderCtas cart={cart} />
       </div>
     </header>
-  );
-}
-
-export function HeaderMenu({menu, viewport}) {
-  const [root] = useMatches();
-  const publicStoreDomain = root?.data?.publicStoreDomain;
-  const className = `header-menu-${viewport}`;
-
-  return (
-    <nav role="navigation">
-      <NavLink prefetch="intent" style={activeLinkStyle} to="/ourStory">
-        Our Story
-      </NavLink>
-    </nav>
   );
 }
 
@@ -41,7 +34,12 @@ function HeaderCtas({cart}) {
 }
 
 function CartBadge({count}) {
-  return <a href="#cart-aside">Cart {count}</a>;
+  return (
+    <a href="#cart-aside" className="text-white flex flex-row">
+      <img src={cart} alt="cart" />
+      <sub>{count}</sub>
+    </a>
+  );
 }
 
 function CartToggle({cart}) {
