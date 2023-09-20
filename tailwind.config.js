@@ -8,7 +8,7 @@ export default {
   theme: {
     fontFamily: {
       inter: ['Inter', 'san-serif'],
-      bebasneue: ['"Bebas Neue"', 'san-serif'],
+      lexend: ['Lexend', 'san-serif'],
     },
     extend: {
       colors: {

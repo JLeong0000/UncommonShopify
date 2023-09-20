@@ -7,7 +7,7 @@ import cart from '../public/icons/Cart.svg';
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   return (
-    <header className="bg-darkGrey py-6">
+    <header className="bg-[rgba(19,19,19,0.7)] py-6 sticky top-0">
       <div className="flex items-center justify-between px-4 mx-auto max-w-[1080px]">
         <div className="flex space-x-10">
           <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
@@ -35,7 +35,7 @@ function HeaderCtas({cart}) {
 
 function CartBadge({count}) {
   return (
-    <a href="#cart-aside" className="text-white flex flex-row">
+    <a href="#cart-aside" className="text-white flex flex-row mx-2">
       <img src={cart} alt="cart" />
       <sub>{count}</sub>
     </a>

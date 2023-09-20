@@ -1,14 +1,16 @@
 export default function FunctionIndex({icon, title, sub}) {
   return (
-    <div className="flex h-[200px] p-0 my-1">
-      <span className="flex w-auto px-6 h-[200px] items-center bg-[#2c2c2c] border-solid border-gray-400 border-[1px]">
-        <img src={icon} alt="" className="max-w-[35px]" />
-      </span>
-      <div className="w-auto my-auto px-6">
-        <h2 className="font-bebasneue font-normal text-2xl tracking-wider">
-          {title}
-        </h2>
-        <p className="font-inter">{sub}</p>
+    <div className="mb-2 p-6 border-solid border-gray-400 border-[1px] border-l-8">
+      <h2 className="ms-2 font-lexend font-bold uppercase text-3xl mb-2">
+        {title}
+      </h2>
+      <div className="flex flex-row items-center">
+        <span className="flex px-4 justify-center">
+          <img src={icon} alt="" className="w-10 max-w-[70px]" />
+        </span>
+        <p className="ps-4 font-inter border-solid border-gray-400 border-l-2">
+          {sub}
+        </p>
       </div>
     </div>
   );

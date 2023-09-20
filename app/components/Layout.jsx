@@ -13,8 +13,8 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   return (
     <>
       <CartAside cart={cart} />
-      <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
       <main className="m-0 p-0 bg-[url('../public/dirtTexture.jpg')] object-contain">
+        <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
         {children}
       </main>
       <Suspense>

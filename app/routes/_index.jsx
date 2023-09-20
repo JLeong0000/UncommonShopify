@@ -12,20 +12,24 @@ import {useState} from 'react';
 import FunctionIndex from '~/components/FunctionIndex';
 
 // Image import
-import tucmPs7 from '../public/Photos/TUCM-PS7.jpg';
-import tucmPs2 from '../public/Photos/TUCM-PS2.jpg';
+import commando from '../public/commandoVideo.mp4';
+import product from '../public/Photos/product.jpg';
 import multilayer from '../public/icons/Multilayer.svg';
 import water from '../public/icons/Water.svg';
 import durable from '../public/icons/Durable.svg';
 import shipping from '../public/icons/Shipping.svg';
 import box from '../public/icons/Package.svg';
 import chevron from '../public/icons/Chevron.svg';
+import showcase1 from '../public/Photos/TUCM-PS8.jpg';
+import showcase2 from '../public/Photos/TUCM-PS4.jpg';
+import showcase3 from '../public/Photos/TUCM-PS6.jpg';
+import showcase4 from '../public/Photos/TUCM-PS7.jpg';
 
 export const meta = () => {
   return [{title: 'Hydrogen | Home'}];
 };
 
-export async function loader({context, request}) {
+export async function loader({params, context, request}) {
   const {collections} = await context.storefront.query(COLLECTIONS_QUERY);
 
   return json({collections});
@@ -37,20 +41,23 @@ export default function Homepage() {
   const [isOpen2, setOpen2] = useState(false);
   return (
     <div>
-      <div className="max-w-[1200px] flex-col p-0 mx-auto items-center">
-        <img src={tucmPs7} className="w-full h-[400px] object-cover" />
-        <section className="flex items-center text-center py-8 max-w-[758px] mx-auto">
+      <div className="flex flex-col max-w-[1200px] p-0 mx-auto items-center">
+        <video src={commando} className="w-full" autoPlay loop></video>
+        <span className="flex justify-center font-inter font-black text-3xl mt-12 md:tracking-[0.2em]">
+          ///////////////////////////////
+        </span>
+        <section className="flex items-center text-center py-0 max-w-[758px] mx-auto">
           <CollectionsGrid collections={collections.edges} />
         </section>
-        <span className="font-inter font-black text-3xl tracking-widest text-center block">
-          //////////////////////////////////////////////
+        <span className="flex justify-center font-inter font-black text-3xl mb-12 md:tracking-[0.2em]">
+          ///////////////////////////////
         </span>
         <img
-          src={tucmPs2}
+          src={product}
           alt=""
-          className="w-full my-16 shadow-[0px_0px_60px_10px_rgba(255,255,255,0.15)]"
+          className="my-8 h-[380px] shadow-[0px_0px_60px_10px_rgba(255,255,255,0.15)] object-cover md:h-[90vh]"
         />
-        <section className="max-w-[726px] py-8 px-0 items-center mx-auto mb-20">
+        <section className="max-w-[726px] px-0 items-center mx-6 mb-10">
           <FunctionIndex
             icon={multilayer}
             title="Multi-Layer Technology"
@@ -70,64 +77,86 @@ export default function Homepage() {
                 withstand long marches and hikes."
           />
         </section>
+        <section className="flex flex-col justify-center mb-16 mx-6">
+          <div className="md:flex md:flex-row">
+            <img
+              src={showcase1}
+              alt=""
+              className="object-cover mb-2 md:me-1 md:w-1/2"
+            />
+            <img
+              src={showcase2}
+              alt=""
+              className="object-cover mb-2 md:ms-1 md:w-1/2"
+            />
+          </div>
+          <div className="md:flex md:flex-row">
+            <img
+              src={showcase3}
+              alt=""
+              className="object-cover mb-2 md:me-1 md:w-1/2"
+            />
+            <img
+              src={showcase4}
+              alt=""
+              className="object-cover mb-2 md:ms-1 md:w-1/2"
+            />
+          </div>
+        </section>
       </div>
-      <div className="bg-[#2C2C2C] py-14">
-        <section className="max-w-[1200px] mx-auto">
-          <h1 className="font-inter font-bold text-4xl m-0">FAQs</h1>
-          <div className="w-full my-14">
-            <div
-              onClick={() => setOpen1((prev) => !prev)}
-              className="flex justify-between text-black bg-white items-center hover:bg-gray-300"
-            >
-              <div className="flex flex-row items-center">
-                <img src={shipping} alt="" className="px-8 h-20" />
-                <h1 className="font-inter font-medium text-2xl m-0 px-4">
-                  Shipping
-                </h1>
-              </div>
-              {!isOpen1 ? (
-                <img src={chevron} alt="" className="px-8 rotate-180" />
-              ) : (
-                <img src={chevron} alt="" className="px-8" />
-              )}
+      <div className="flex bg-[#2C2C2C] py-14 justify-center">
+        <section className="flex flex-col w-full max-w-[1200px] mx-4">
+          <h1 className="font-lexend font-bold text-5xl m-0 items-start">
+            FAQs
+          </h1>
+          <div
+            onClick={() => setOpen1((prev) => !prev)}
+            className="flex items-center justify-between text-black bg-white hover:bg-gray-300 w-full mt-14"
+          >
+            <div className="flex flex-row items-center">
+              <img src={shipping} alt="" className="px-8 h-14 lg:h-20" />
+              <h1 className="font-lexend font-medium text-2xl m-0">Shipping</h1>
             </div>
-            {isOpen1 && (
-              <div className="mt-6">
-                <h3 className="font-inter font-semibold">
-                  Do you ship internationally?
-                </h3>
-                <p className="font-inter mb-6">
-                  Unfortunately not yet {':('} We want to solidify our
-                  operations for now!
-                </p>
-                <h3 className="font-inter font-semibold">
-                  What is my delivery cost?
-                </h3>
-                <p className="font-inter mb-6">
-                  We offer door-to-door delivery at $3.50 for all local orders.
-                  You will enjoy free shipping above SGD60 spend!
-                </p>
-                <h3 className="font-inter font-semibold">
-                  How long will it take to get my order?
-                </h3>
-                <p className="font-inter mb-6">
-                  We're excited for you to receive your socks too! It will take
-                  4-6 working days to arrive at doorstep the moment you place an
-                  order with us {':)'}
-                </p>
-              </div>
+            {!isOpen1 ? (
+              <img src={chevron} alt="" className="px-8 rotate-180" />
+            ) : (
+              <img src={chevron} alt="" className="px-8" />
             )}
           </div>
+          {isOpen1 && (
+            <div className="mt-6">
+              <h3 className="font-inter font-semibold">
+                Do you ship internationally?
+              </h3>
+              <p className="font-inter mb-6">
+                Unfortunately not yet {':('} We want to solidify our operations
+                for now!
+              </p>
+              <h3 className="font-inter font-semibold">
+                What is my delivery cost?
+              </h3>
+              <p className="font-inter mb-6">
+                We offer door-to-door delivery at $3.50 for all local orders.
+                You will enjoy free shipping above SGD60 spend!
+              </p>
+              <h3 className="font-inter font-semibold">
+                How long will it take to get my order?
+              </h3>
+              <p className="font-inter mb-6">
+                We're excited for you to receive your socks too! It will take
+                4-6 working days to arrive at doorstep the moment you place an
+                order with us {':)'}
+              </p>
+            </div>
+          )}
           <div>
             <div
               onClick={() => setOpen2((prev) => !prev)}
-              className="flex justify-between text-black bg-white items-center hover:bg-gray-300"
+              className="flex justify-between text-black bg-white items-center hover:bg-gray-300 w-full my-10"
             >
               <div className="flex flex-row items-center">
-                <img src={box} alt="" className="px-8 h-20" />
-                <h1 className="font-inter font-medium text-2xl m-0 px-4">
-                  Orders
-                </h1>
+                <img src={box} alt="" className="px-8 h-14 lg:h-20" />
+                <h1 className="font-lexend font-medium text-2xl m-0">Orders</h1>
               </div>
               {!isOpen2 ? (
                 <img src={chevron} alt="" className="px-8 rotate-180" />
@@ -213,16 +242,16 @@ function CollectionsGrid({collections}) {
     <div>
       {collections.map((collection, index) => {
         return (
-          <div key={index} className="my-10">
-            <h1 className="my-2 font-inter font-bold text-2xl">
+          <div key={index} className="my-12 w-[400px] md:w-full">
+            <h1 className="mx-3 my-0 font-lexend uppercase font-bold tracking-tighter text-start text-6xl">
               {collection.node.title}
             </h1>
-            <p className="mb-8 font-inter font-light">
+            <p className="mb-4 mx-4 font-inter font-light text-start">
               {collection.node.description}
             </p>
             <ProductsGrid products={collection.node.products.edges} />
             {collection.node.title === 'Men' && (
-              <p className="flex mx-auto px-8 mt-6 font-inter font-light bg-black border-gray-400 border-[1px] rounded-md w-fit">
+              <p className="flex mx-3 px-3 py-1 mt-4 font-inter font-light text-start bg-gradient-to-r from-[#262626] border-gray-400 border-l-4 w-fit">
                 Free local delivery with a minimum purchase of 3 socks
               </p>
             )}
@@ -235,7 +264,7 @@ function CollectionsGrid({collections}) {
 
 function ProductsGrid({products}) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-center lg:justify-between">
       {products.map((product, index) => {
         return (
           <ProductItem
@@ -254,7 +283,7 @@ function ProductItem({product, loading}) {
   const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
   return (
     <Link key={product.id} prefetch="intent" to={variantUrl}>
-      <section className="flex p-0 w-[370px] bg-white">
+      <section className="flex flex-col mx-2 p-0 bg-white md:min-h-fit md:flex-row md:w-[370px] ">
         {product.featuredImage && (
           <Image
             alt={product.featuredImage.altText || product.title}
@@ -265,11 +294,30 @@ function ProductItem({product, loading}) {
             className="p-2"
           />
         )}
-        <div className="flex flex-col text-start px-2 justify-end pb-[70px]">
-          <h4 className="font-bebasneue text-4xl m-0">{product.title}</h4>
-          <small className="font-inter font-light text-xl">
-            <Money data={product.priceRange.minVariantPrice} />
-          </small>
+        <div className="flex flex-col pb-2 px-2 justify-between md:pb-20 md:text-start md:justify-end">
+          <h4 className="font-lexend font-bold tracking-tighter m-0 text-lg md:text-2xl">
+            {product.title}
+          </h4>
+          {product.availableForSale === true ? (
+            <p className="font-inter font-light">
+              <Money data={product.priceRange.minVariantPrice} />
+            </p>
+          ) : (
+            <p className="font-inter font-light text-red-500">Out of stock</p>
+          )}
+
+          {/* {product.compareAtPriceRange.minVariantPrice === 0 ? (
+            <div className="flex flex-row">
+              <p className="font-inter font-light pe-2">
+                <Money data={product.compareAtPriceRange.minVariantPrice} />
+              </p>
+              <p className="font-inter text-red-500">Sale</p>
+            </div>
+          ) : (
+            <p className="font-inter font-light">
+              <Money data={product.priceRange.minVariantPrice} />
+            </p>
+          )} */}
         </div>
       </section>
     </Link>
@@ -290,12 +338,19 @@ const COLLECTIONS_QUERY = `#graphql
              id
              title
              handle
+             availableForSale
              priceRange {
                minVariantPrice {
                  amount
                  currencyCode
                }
              }
+             compareAtPriceRange{
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
              featuredImage {
                url
                altText

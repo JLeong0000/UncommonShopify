@@ -130,7 +130,7 @@ function ProductMain({selectedVariant, product, variants}) {
   const {title, description} = product;
   return (
     <div className="mx-5 items-center lg:max-w-[550px]">
-      <h1 className="flex justify-center font-bebasneue font-normal text-4xl tracking-wider m-0 mt-14">
+      <h1 className="flex justify-center font-lexend font-normal text-3xl tracking-tight m-0 mt-14">
         {title}
       </h1>
       <ProductPrice selectedVariant={selectedVariant} />
@@ -338,7 +338,7 @@ function ProductOptions({option}) {
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return (
             <Link
-              className="text-white px-4 m-0"
+              className="flex text-white items-center px-2 mx-1 my-0"
               key={option.name + value}
               prefetch="intent"
               preventScrollReset
