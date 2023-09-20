@@ -3,17 +3,16 @@ import {Suspense} from 'react';
 
 // image import
 import cart from '../public/icons/Cart.svg';
+import logo from '../public/logosmall.png';
 
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   return (
-    <header className="bg-[rgba(19,19,19,0.7)] py-6 sticky top-0">
+    <header className="bg-[rgba(19,19,19,0.7)] py-2 sticky top-0">
       <div className="flex items-center justify-between px-4 mx-auto max-w-[1080px]">
-        <div className="flex space-x-10">
+        <div className="flex space-x-12 items-center">
           <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-            <strong className="text-white font-bebas uppercase">
-              {shop.name}
-            </strong>
+            <img src={logo} alt="" width={150} className="h-full" />
           </NavLink>
           <NavLink prefetch="intent" style={activeLinkStyle} to="/ourStory">
             <span className="text-white font-inter font-medium">Our Story</span>

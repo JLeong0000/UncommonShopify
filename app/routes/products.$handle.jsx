@@ -119,8 +119,11 @@ function ProductImage({image}) {
       <Image
         alt={image.altText || 'Product Image'}
         aspectRatio="1/1"
+        width="550"
+        height="550"
         data={image}
         key={image.id}
+        className="object-contain"
       />
     </div>
   );
@@ -129,8 +132,8 @@ function ProductImage({image}) {
 function ProductMain({selectedVariant, product, variants}) {
   const {title, description} = product;
   return (
-    <div className="mx-5 items-center lg:max-w-[550px]">
-      <h1 className="flex justify-center font-lexend font-normal text-3xl tracking-tight m-0 mt-14">
+    <div className="mx-5 items-center md:w-[550px]">
+      <h1 className="flex justify-center text-center font-lexend font-normal text-3xl tracking-tight m-0 mt-14 capitalize">
         {title}
       </h1>
       <ProductPrice selectedVariant={selectedVariant} />
@@ -262,8 +265,7 @@ function ProductPrice({selectedVariant}) {
     <div className="flex justify-center font-inter font-light text-lg my-1">
       {selectedVariant?.compareAtPrice ? (
         <>
-          <p>Sale</p>
-          <br />
+          <p className="text-[#ff0000] me-2">Sale</p>
           <div className="product-price-on-sale">
             {selectedVariant ? <Money data={selectedVariant.price} /> : null}
             <s>

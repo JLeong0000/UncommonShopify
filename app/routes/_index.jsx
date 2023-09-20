@@ -243,10 +243,10 @@ function CollectionsGrid({collections}) {
       {collections.map((collection, index) => {
         return (
           <div key={index} className="my-12 w-[400px] md:w-full">
-            <h1 className="mx-3 my-0 font-lexend uppercase font-bold tracking-tighter text-start text-6xl">
+            <h1 className="mx-2 my-0 font-lexend font-bold tracking-tighter text-start text-6xl capitalize">
               {collection.node.title}
             </h1>
-            <p className="mb-4 mx-4 font-inter font-light text-start">
+            <p className="mt-2 mb-4 mx-3 font-inter font-light text-start">
               {collection.node.description}
             </p>
             <ProductsGrid products={collection.node.products.edges} />
@@ -291,11 +291,11 @@ function ProductItem({product, loading}) {
             data={product.featuredImage}
             loading={loading}
             width={200}
-            className="p-2"
+            className="p-2 object-contain"
           />
         )}
-        <div className="flex flex-col pb-2 px-2 justify-between md:pb-20 md:text-start md:justify-end">
-          <h4 className="font-lexend font-bold tracking-tighter m-0 text-lg md:text-2xl">
+        <div className="flex flex-col pb-2 px-2 justify-between md:pb-16 md:text-start md:justify-end">
+          <h4 className="font-lexend font-bold tracking-tighter m-0 text-lg md:text-2xl capitalize">
             {product.title}
           </h4>
           {product.availableForSale === true ? (
