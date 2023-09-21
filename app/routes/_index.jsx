@@ -10,6 +10,7 @@ import {
 import {useVariantUrl} from '~/utils';
 import {useState} from 'react';
 import FunctionIndex from '~/components/FunctionIndex';
+import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs';
 
 // Image import
 import commando from '../public/commandoVideo.mp4';
@@ -39,6 +40,19 @@ export default function Homepage() {
   const {collections} = useLoaderData();
   const [isOpen1, setOpen1] = useState(false);
   const [isOpen2, setOpen2] = useState(false);
+
+  const slides = [showcase1, showcase2, showcase3, showcase4];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const prevSlide = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+  const nextSlide = () => {
+    const isLastSlide = currentIndex === slides.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
   return (
     <div>
       <div className="flex flex-col max-w-[1200px] p-0 mx-auto items-center">
@@ -77,7 +91,7 @@ export default function Homepage() {
                 withstand long marches and hikes."
           />
         </section>
-        <section className="flex flex-col justify-center mb-16 mx-6">
+        <section className="justify-center mb-16 mx-6 hidden md:block">
           <div className="md:flex md:flex-row">
             <img
               src={showcase1}
@@ -101,6 +115,21 @@ export default function Homepage() {
               alt=""
               className="object-cover mb-2 md:ms-1 md:w-1/2"
             />
+          </div>
+        </section>
+        <section className="justify-center mb-16 mx-6 md:hidden relative">
+          <div className="md:flex md:flex-row">
+            <img
+              src={slides[currentIndex]}
+              alt=""
+              className="object-cover mb-2 md:me-1 md:w-1/2"
+            />
+          </div>
+          <div className="absolute top-[40%] left-4 text-2xl px-2 py-4 bg-black/20 text-white cursor-pointer">
+            <BsChevronCompactLeft size={30} onClick={prevSlide} />
+          </div>
+          <div className="absolute top-[40%] right-4 text-2xl px-2 py-4 bg-black/20 text-white cursor-pointer">
+            <BsChevronCompactRight size={30} onClick={nextSlide} />
           </div>
         </section>
       </div>
