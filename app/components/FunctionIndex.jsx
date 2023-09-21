@@ -1,7 +1,7 @@
 export default function FunctionIndex({icon, title, sub}) {
   return (
     <div className="mb-2 p-6 border-solid border-gray-400 border-[1px] border-l-8">
-      <h2 className="ms-2 font-lexend font-bold uppercase text-3xl mb-2">
+      <h2 className="ms-2 font-lexend font-bold uppercase mb-2 text-2xl md:text-3xl">
         {title}
       </h2>
       <div className="flex flex-row items-center">

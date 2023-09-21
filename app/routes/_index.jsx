@@ -281,6 +281,9 @@ function ProductsGrid({products}) {
 function ProductItem({product, loading}) {
   const variant = product.variants.nodes[0];
   const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
+  const comparePrice = product.compareAtPriceRange.minVariantPrice;
+  const currentPrice = product.priceRange.minVariantPrice;
+
   return (
     <Link key={product.id} prefetch="intent" to={variantUrl}>
       <section className="flex flex-col mx-2 p-0 bg-white md:min-h-fit md:flex-row md:w-[370px] ">
@@ -299,25 +302,26 @@ function ProductItem({product, loading}) {
             {product.title}
           </h4>
           {product.availableForSale === true ? (
-            <p className="font-inter font-light">
-              <Money data={product.priceRange.minVariantPrice} />
-            </p>
+            comparePrice.amount === '0.0' ? (
+              <span className="font-inter font-light">
+                <Money data={currentPrice} />
+              </span>
+            ) : (
+              <>
+                <div className="flex flex-row">
+                  <span className="font-inter font-light me-2 ms-11 md:ms-0">
+                    <Money data={currentPrice} />
+                  </span>
+                  <sub className="text-[#ff0000] mt-1">Sale</sub>
+                </div>
+                <s>
+                  <Money data={comparePrice} />
+                </s>
+              </>
+            )
           ) : (
             <p className="font-inter font-light text-red-500">Out of stock</p>
           )}
-
-          {/* {product.compareAtPriceRange.minVariantPrice === 0 ? (
-            <div className="flex flex-row">
-              <p className="font-inter font-light pe-2">
-                <Money data={product.compareAtPriceRange.minVariantPrice} />
-              </p>
-              <p className="font-inter text-red-500">Sale</p>
-            </div>
-          ) : (
-            <p className="font-inter font-light">
-              <Money data={product.priceRange.minVariantPrice} />
-            </p>
-          )} */}
         </div>
       </section>
     </Link>

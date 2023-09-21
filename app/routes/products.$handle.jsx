@@ -11,6 +11,7 @@ import {
 } from '@shopify/hydrogen';
 import {getVariantUrl} from '~/utils';
 import FaqProduct from '~/components/FaqProduct';
+import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs';
 
 export const meta = ({data}) => {
   return [{title: `Hydrogen | ${data.product.title}`}];
@@ -98,9 +99,13 @@ function redirectToFirstVariant({product, request}) {
 export default function Product() {
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
+
   return (
     <div className="flex flex-col justify-center items-center lg:flex-row lg:items-start">
-      <ProductImage image={selectedVariant?.image} />
+      <ProductImages
+        image={selectedVariant?.image}
+        otherImages={product.selectedVariant.product.images.edges}
+      />
       <ProductMain
         selectedVariant={selectedVariant}
         product={product}
@@ -110,29 +115,76 @@ export default function Product() {
   );
 }
 
-function ProductImage({image}) {
-  if (!image) {
+function ProductImages({otherImages}) {
+  if (!otherImages) {
     return <div className="product-image" />;
   }
+  const moreThanTwo = otherImages.length > 2;
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const prevSlide = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? otherImages.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+  const nextSlide = () => {
+    const isLastSlide = currentIndex === otherImages.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
   return (
-    <div className="container justify-center mx-5 max-w-[550px]">
-      <Image
-        alt={image.altText || 'Product Image'}
-        aspectRatio="1/1"
-        width="550"
-        height="550"
-        data={image}
-        key={image.id}
-        className="object-contain"
-      />
-    </div>
+    <section className="p-0 lg:mb-10">
+      <div className="max-w-[550px] w-full justify-center hidden lg:block">
+        {otherImages.map((img, index) => (
+          <div
+            key={index}
+            className={
+              moreThanTwo
+                ? index % 3 !== 0
+                  ? 'inline-block object-contain w-1/2'
+                  : ''
+                : ''
+            }
+          >
+            <Image
+              alt={img.node.altText || 'Product Image'}
+              aspectRatio="1/1"
+              width="550"
+              height="550"
+              src={img.node.url}
+              key={img.node.id}
+              className="object-contain"
+            />
+          </div>
+        ))}
+      </div>
+      <div className="max-w-[550px] w-full m-auto px-4 relative group lg:hidden">
+        <div>
+          <Image
+            alt={otherImages[currentIndex].node.altText || 'Product Image'}
+            aspectRatio="1/1"
+            width="550"
+            height="550"
+            src={otherImages[currentIndex].node.url}
+            key={otherImages[currentIndex].node.id}
+            className="object-contain "
+          />
+        </div>
+        <div className="absolute top-[45%] left-4 text-2xl px-2 py-4 bg-black/20 text-white cursor-pointer hidden group-hover:block">
+          <BsChevronCompactLeft size={30} onClick={prevSlide} />
+        </div>
+        <div className="absolute top-[45%] right-4 text-2xl px-2 py-4 bg-black/20 text-white cursor-pointer hidden group-hover:block">
+          <BsChevronCompactRight size={30} onClick={nextSlide} />
+        </div>
+      </div>
+    </section>
   );
 }
 
 function ProductMain({selectedVariant, product, variants}) {
   const {title, description} = product;
   return (
-    <div className="mx-5 items-center md:w-[550px]">
+    <div className="mx-5 items-center w-full max-w-[550px]">
       <h1 className="flex justify-center text-center font-lexend font-normal text-3xl tracking-tight m-0 mt-14 capitalize">
         {title}
       </h1>
@@ -265,7 +317,7 @@ function ProductPrice({selectedVariant}) {
     <div className="flex justify-center font-inter font-light text-lg my-1">
       {selectedVariant?.compareAtPrice ? (
         <>
-          <p className="text-[#ff0000] me-2">Sale</p>
+          <span className="text-[#ff0000] me-2">Sale</span>
           <div className="product-price-on-sale">
             {selectedVariant ? <Money data={selectedVariant.price} /> : null}
             <s>
@@ -407,6 +459,17 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
     product {
       title
       handle
+      images(first:10) {
+        edges {
+          node {
+            id
+            altText
+            url
+            height
+            width
+          }
+        }
+      }
     }
     selectedOptions {
       name
