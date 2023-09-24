@@ -20,11 +20,11 @@ import water from '../public/icons/Water.svg';
 import durable from '../public/icons/Durable.svg';
 import shipping from '../public/icons/Shipping.svg';
 import box from '../public/icons/Package.svg';
-import chevron from '../public/icons/Chevron.svg';
 import showcase1 from '../public/Photos/TUCM-PS8.jpg';
 import showcase2 from '../public/Photos/TUCM-PS4.jpg';
 import showcase3 from '../public/Photos/TUCM-PS6.jpg';
 import showcase4 from '../public/Photos/TUCM-PS7.jpg';
+import FAQitem from '~/components/FAQitem';
 
 export const meta = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -38,8 +38,75 @@ export async function loader({params, context, request}) {
 
 export default function Homepage() {
   const {collections} = useLoaderData();
-  const [isOpen1, setOpen1] = useState(false);
-  const [isOpen2, setOpen2] = useState(false);
+
+  const faqItem1 = {
+    header: {img: shipping, title: 'shipping'},
+    body: [
+      {
+        q: 'Do you ship internationally?',
+        a: 'Unfortunately not yet :( We want to solidify our operations for now!',
+      },
+      {
+        q: 'What is my delivery cost?',
+        a: 'We offer door-to-door delivery at $3.50 for all local orders. You will enjoy free shipping above SGD60 spend!',
+      },
+      {
+        q: 'How long will it take to get my order?',
+        a: "We're excited for you to receive your socks too! It will take 4-6 working days to arrive at doorstep the moment you place an order with us :)",
+      },
+    ],
+  };
+  const faqItem2 = {
+    header: {img: box, title: 'orders'},
+    body: [
+      {
+        q: 'Can I cancel my order?',
+        a: 'Please double check your order before checking out as order cancellations or changes are not allowed in order to streamline our operations. As we want our customers to receive their orders as soon as possible, the fulfilment process begins the moment an order is received. It would be difficult for us to cancel your order in time.',
+      },
+      {
+        q: 'Can I return my product?',
+        a: "If you change your mind within 14 days of receiving your socks, email us at theuncommonlevel@gmail.com and we're happy to help. Please ensure that the item is in its original condition and packaging in order for the refund to be processed. Shipping costs will be borne by the customer unless in the case of defects.",
+      },
+      {
+        q: 'Can I exchange my product?',
+        a: 'Due to logistical reasons, we are unable to provide one to one exchanges for now. We recommend returning your item and placing a new order :)',
+      },
+      {
+        q: 'I received a defective item. Can I get a refund?',
+        a: (
+          <>
+            We're so so sorry if you received a defective piece! In that case,
+            please email us at theuncommonlevel@gmail.com within 14 working days
+            from date of receipt and we will send you a replacement piece. If
+            there are no more stocks, we will issue you a full refund.
+            <p className="mt-4">
+              Email details: <br /> Your order number: #<br /> The name of the
+              defective item: e.g. calf/crew socks <br /> Photograph of the
+              defect:
+            </p>
+          </>
+        ),
+      },
+      {
+        q: 'How do I take care of my socks?',
+        a: (
+          <>
+            <span>
+              It works like a pair of regular socks but here are some things you
+              can take note:
+              <ul className="list-disc ps-6 py-2">
+                <li>
+                  Please DO NOT bleach or iron to prevent the waterproof
+                  membrane from being damaged
+                </li>
+                <li>Drip dry while inverted for fastest drying time.</li>
+              </ul>
+            </span>
+          </>
+        ),
+      },
+    ],
+  };
 
   const slides = [showcase1, showcase2, showcase3, showcase4];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -53,6 +120,7 @@ export default function Homepage() {
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
+
   return (
     <div>
       <div className="flex flex-col max-w-[1200px] p-0 mx-auto items-center">
@@ -76,21 +144,22 @@ export default function Homepage() {
             icon={multilayer}
             title="Multi-Layer Technology"
             sub="Our three-layered structure prevents water from penetrating
-                inside while drawing moisture away from your feet"
+                  inside while drawing moisture away from your feet"
           />
           <FunctionIndex
             icon={water}
             title="Water Resistant"
             sub="Keeps your feet dry and comfortable all day long even in the
-                wettest conditions."
+                  wettest conditions."
           />
           <FunctionIndex
             icon={durable}
             title="Durability"
             sub="Our Nylon-Polyester blend reinforces the overall durability to
-                withstand long marches and hikes."
+                  withstand long marches and hikes."
           />
         </section>
+        {/* Product Gallery */}
         <section className="justify-center mb-16 mx-6 hidden md:block">
           <div className="md:flex md:flex-row">
             <img
@@ -117,6 +186,7 @@ export default function Homepage() {
             />
           </div>
         </section>
+        {/* Photo Gallery Mobile */}
         <section className="justify-center mb-16 mx-6 md:hidden relative">
           <div className="md:flex md:flex-row">
             <img
@@ -133,133 +203,14 @@ export default function Homepage() {
           </div>
         </section>
       </div>
+      {/* FAQ */}
       <div className="flex bg-[#2C2C2C] py-14 justify-center">
         <section className="flex flex-col w-full max-w-[1200px] mx-4">
           <h1 className="font-lexend font-bold text-5xl m-0 items-start">
             FAQs
           </h1>
-          <div
-            onClick={() => setOpen1((prev) => !prev)}
-            className="flex items-center justify-between text-black bg-white hover:bg-gray-300 w-full mt-14"
-          >
-            <div className="flex flex-row items-center">
-              <img src={shipping} alt="" className="px-8 h-14 lg:h-20" />
-              <h1 className="font-lexend font-medium text-2xl m-0">Shipping</h1>
-            </div>
-            {!isOpen1 ? (
-              <img src={chevron} alt="" className="px-8 rotate-180" />
-            ) : (
-              <img src={chevron} alt="" className="px-8" />
-            )}
-          </div>
-          {isOpen1 && (
-            <div className="mt-6">
-              <h3 className="font-inter font-semibold">
-                Do you ship internationally?
-              </h3>
-              <p className="font-inter mb-6">
-                Unfortunately not yet {':('} We want to solidify our operations
-                for now!
-              </p>
-              <h3 className="font-inter font-semibold">
-                What is my delivery cost?
-              </h3>
-              <p className="font-inter mb-6">
-                We offer door-to-door delivery at $3.50 for all local orders.
-                You will enjoy free shipping above SGD60 spend!
-              </p>
-              <h3 className="font-inter font-semibold">
-                How long will it take to get my order?
-              </h3>
-              <p className="font-inter mb-6">
-                We're excited for you to receive your socks too! It will take
-                4-6 working days to arrive at doorstep the moment you place an
-                order with us {':)'}
-              </p>
-            </div>
-          )}
-          <div>
-            <div
-              onClick={() => setOpen2((prev) => !prev)}
-              className="flex justify-between text-black bg-white items-center hover:bg-gray-300 w-full my-10"
-            >
-              <div className="flex flex-row items-center">
-                <img src={box} alt="" className="px-8 h-14 lg:h-20" />
-                <h1 className="font-lexend font-medium text-2xl m-0">Orders</h1>
-              </div>
-              {!isOpen2 ? (
-                <img src={chevron} alt="" className="px-8 rotate-180" />
-              ) : (
-                <img src={chevron} alt="" className="px-8" />
-              )}
-            </div>
-            {isOpen2 && (
-              <div className="mt-6">
-                <h3 className="font-inter font-semibold">
-                  Can I cancel my order?
-                </h3>
-                <p className="font-inter mb-6">
-                  Please double check your order before checking out as order
-                  cancellations or changes are not allowed in order to
-                  streamline our operations. As we want our customers to receive
-                  their orders as soon as possible, the fulfilment process
-                  begins the moment an order is received. It would be difficult
-                  for us to cancel your order in time.
-                </p>
-                <h3 className="font-inter font-semibold">
-                  Can I return my product?
-                </h3>
-                <p className="font-inter mb-6">
-                  If you change your mind within 14 days of receiving your
-                  socks, email us at theuncommonlevel@gmail.com and we're happy
-                  to help. Please ensure that the item is in its original
-                  condition and packaging in order for the refund to be
-                  processed. Shipping costs will be borne by the customer unless
-                  in the case of defects.
-                </p>
-                <h3 className="font-inter font-semibold">
-                  Can I exchange my product?
-                </h3>
-                <p className="font-inter mb-6">
-                  Due to logistical reasons, we are unable to provide one to one
-                  exchanges for now. We recommend returning your item and
-                  placing a new order {':)'}
-                </p>
-                <h3 className="font-inter font-semibold">
-                  I received a defective item. Can I get a refund?
-                </h3>
-                <p className="font-inter mb-6">
-                  We're so so sorry if you received a defective piece! In that
-                  case, please email us at theuncommonlevel@gmail.com within 14
-                  working days from date of receipt and we will send you a
-                  replacement piece. If there are no more stocks, we will issue
-                  you a full refund.
-                  <p className="mt-4">
-                    Email details:
-                    <br />
-                    Your order number: #<br />
-                    The name of the defective item: e.g. calf/crew socks
-                    <br />
-                    Photograph of the defect:
-                  </p>
-                </p>
-                <h3 className="font-inter font-semibold">
-                  How do I take care of my socks?
-                </h3>
-                <p className="font-inter mb-6">
-                  It works like a pair of regular socks but here are some things
-                  you can take note:
-                  <ul className="list-disc ps-6 py-2">
-                    <li>
-                      Please DO NOT bleach or iron to prevent the waterproof
-                      membrane from being damaged
-                    </li>
-                    <li>Drip dry while inverted for fastest drying time.</li>
-                  </ul>
-                </p>
-              </div>
-            )}
-          </div>
+          <FAQitem item={faqItem1} />
+          <FAQitem item={faqItem2} />
         </section>
       </div>
     </div>
