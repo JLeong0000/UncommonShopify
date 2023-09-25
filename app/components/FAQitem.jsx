@@ -9,7 +9,7 @@ export default function FAQitem({item}) {
     <>
       <div
         onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center justify-between text-black bg-white hover:bg-gray-300 w-full mt-14"
+        className="flex items-center justify-between text-black bg-white hover:bg-gray-300 w-full mt-8 lg:mt-14"
       >
         <div className="flex flex-row items-center">
           <img src={header.img} alt="" className="px-8 h-14 lg:h-20" />

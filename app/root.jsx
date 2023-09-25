@@ -135,7 +135,7 @@ export function ErrorBoundary() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="sm:no-mobile-scroll">
         <Layout {...root.data}>
           <div className="route-error">
             <h1>Oops</h1>
