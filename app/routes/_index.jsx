@@ -266,7 +266,7 @@ function ProductItem({product, loading}) {
 
   return (
     <Link key={product.id} prefetch="intent" to={variantUrl}>
-      <section className="flex flex-col mx-2 p-0 bg-white md:min-h-fit md:flex-row md:w-[370px] ">
+      <section className="flex flex-col mx-2 p-0 bg-white md:min-h-fit md:flex-row md:w-[370px] transition hover:scale-105 ease-out">
         {product.featuredImage && (
           <Image
             alt={product.featuredImage.altText || product.title}
