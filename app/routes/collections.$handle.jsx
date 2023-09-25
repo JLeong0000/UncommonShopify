@@ -9,7 +9,7 @@ import {
 import {useVariantUrl} from '~/utils';
 
 export const meta = ({data}) => {
-  return [{title: `The Uncommon Level | ${data.collection.title} `}];
+  return [{title: `TheUncommonLevel | ${data.collection.title} `}];
 };
 
 export async function loader({request, params, context}) {
