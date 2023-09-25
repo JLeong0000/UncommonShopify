@@ -36,8 +36,8 @@ export default function OurStory() {
             goal and enjoy the process without worry of soggy feet and blisters.
           </p>
         </div>
-        <div className="mx-32 p-4 mt-14 border-solid border-gray-500 border-b-[1px]">
-          <blockquote className="font-lexend text-2xl italic font-semibold">
+        <div className="max-w-[750px] p-4 mt-12 mx-auto border-solid border-gray-500 border-b-[1px] ">
+          <blockquote className="font-lexend italic font-semibold text-2xl md:text-xl">
             "We intend to forge a community of uncommon people with a similar
             mindset. To dream big and conquer their fears."
           </blockquote>

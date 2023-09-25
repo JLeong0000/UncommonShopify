@@ -8,7 +8,7 @@ import {
   CartForm,
 } from '@shopify/hydrogen';
 import {useVariantUrl} from '~/utils';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import FunctionIndex from '~/components/FunctionIndex';
 import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs';
 
@@ -108,7 +108,21 @@ export default function Homepage() {
     ],
   };
 
-  const slides = [showcase1, showcase2, showcase3, showcase4];
+  const pictures = [showcase1, showcase2, showcase3, showcase4];
+  const preloadImages = (imageUrls) => {
+    const images = [];
+    for (const imageUrl of imageUrls) {
+      const img = new Image();
+      img.src = imageUrl;
+      images.push(img);
+    }
+    return images;
+  };
+
+  useEffect(() => {
+    const slides = preloadImages(pictures);
+  });
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
@@ -124,7 +138,7 @@ export default function Homepage() {
   return (
     <div>
       <div className="flex flex-col max-w-[1200px] p-0 mx-auto items-center">
-        <video src={commando} className="w-full" autoPlay loop></video>
+        <video src={commando} className="w-full" autoPlay loop muted></video>
         <span className="flex justify-center font-inter font-black text-3xl mt-12 md:tracking-[0.2em]">
           ///////////////////////////////
         </span>
@@ -223,7 +237,7 @@ function CollectionsGrid({collections}) {
       {collections.map((collection, index) => {
         return (
           <div key={index} className="my-12 w-[400px] md:w-full">
-            <h1 className="mx-2 my-0 font-lexend font-bold tracking-tighter text-start text-6xl capitalize">
+            <h1 className="mx-2 my-0 font-lexend font-bold tracking-tighter text-start capitalize text-4xl md:text-5xl">
               {collection.node.title}
             </h1>
             <p className="mt-2 mb-4 mx-3 font-inter font-light text-start">
