@@ -13,7 +13,7 @@ export default function OurStory() {
         alt=""
         className="w-full object-cover max-h-[30vh] md:max-h-[50vh]"
       />
-      <section className="text-start p-12 md:p-20">
+      <section className="text-start px-6 py-12 md:px-20 md:py-20">
         <h1 className="font-lexend m-0 tracking-tighter text-6xl lg:text-7xl">
           Our Story
         </h1>
