@@ -37,7 +37,7 @@ export default function OurStory() {
           </p>
         </div>
         <div className="max-w-[750px] p-4 mt-12 mx-auto border-solid border-gray-500 border-b-[1px] ">
-          <blockquote className="font-lexend italic font-semibold text-2xl md:text-xl">
+          <blockquote className="font-lexend italic font-semibold text-xl md:text-2xl">
             "We intend to forge a community of uncommon people with a similar
             mindset. To dream big and conquer their fears."
           </blockquote>

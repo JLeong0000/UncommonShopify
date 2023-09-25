@@ -108,20 +108,20 @@ export default function Homepage() {
     ],
   };
 
-  const pictures = [showcase1, showcase2, showcase3, showcase4];
-  const preloadImages = (imageUrls) => {
-    const images = [];
-    for (const imageUrl of imageUrls) {
-      const img = new Image();
-      img.src = imageUrl;
-      images.push(img);
-    }
-    return images;
-  };
-
   useEffect(() => {
+    const pictures = [showcase1, showcase2, showcase3, showcase4];
+    const preloadImages = (imageUrls) => {
+      const images = [];
+      for (const imageUrl of imageUrls) {
+        const img = new Image();
+        img.src = imageUrl;
+        images.push(img);
+      }
+      return images;
+    };
+
     const slides = preloadImages(pictures);
-  });
+  }, []);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const prevSlide = () => {
