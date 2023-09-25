@@ -1,6 +1,10 @@
 import march from '../public/Photos/TUCM-march.jpg';
 import groupkneel from '../public/Photos/TUCM-groupkneelblur.jpg';
 
+export const meta = () => {
+  return [{title: 'TheUncommonLevel | Our Story'}];
+};
+
 export default function OurStory() {
   return (
     <div className="flex-col max-w-[1200px] items-center mx-auto">

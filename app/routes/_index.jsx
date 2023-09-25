@@ -27,7 +27,7 @@ import showcase4 from '../public/Photos/TUCM-PS7.jpg';
 import FAQitem from '~/components/FAQitem';
 
 export const meta = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{title: 'TheUncommonLevel | Home'}];
 };
 
 export async function loader({params, context, request}) {
