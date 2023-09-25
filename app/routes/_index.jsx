@@ -140,7 +140,15 @@ export default function Homepage() {
   return (
     <div>
       <div className="flex flex-col max-w-[1200px] p-0 mx-auto items-center">
-        <video src={commando} className="w-full" autoPlay loop muted></video>
+        <video
+          src={commando}
+          className="w-full"
+          loop=""
+          autoplay=""
+          preload="auto"
+          muted=""
+          playsinline=""
+        ></video>
         <span className="flex justify-center font-inter font-black text-3xl mt-12 md:tracking-[0.2em]">
           ///////////////////////////////
         </span>
