@@ -13,7 +13,7 @@ import FunctionIndex from '~/components/FunctionIndex';
 import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs';
 
 // Image import
-// import commando from '../public/commandoVideo.mp4';
+import commando from '../public/commandoVideo.mp4';
 import product from '../public/Photos/product.jpg';
 import multilayer from '../public/icons/Multilayer.svg';
 import water from '../public/icons/Water.svg';
@@ -124,7 +124,7 @@ export default function Homepage() {
   return (
     <div>
       <div className="flex flex-col max-w-[1200px] p-0 mx-auto items-center">
-        {/* <video src={commando} className="w-full" autoPlay loop></video> */}
+        <video src={commando} className="w-full" autoPlay loop></video>
         <span className="flex justify-center font-inter font-black text-3xl mt-12 md:tracking-[0.2em]">
           ///////////////////////////////
         </span>
