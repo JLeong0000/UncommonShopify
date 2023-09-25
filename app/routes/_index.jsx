@@ -108,20 +108,22 @@ export default function Homepage() {
     ],
   };
 
+  const [slides, setSlides] = useState([]);
   useEffect(() => {
     const pictures = [showcase1, showcase2, showcase3, showcase4];
     const preloadImages = (imageUrls) => {
       const images = [];
       for (const imageUrl of imageUrls) {
-        const img = new Image();
-        img.src = imageUrl;
-        images.push(img);
+        images.push(imageUrl);
       }
       return images;
     };
 
-    const slides = preloadImages(pictures);
+    const loadedSlides = preloadImages(pictures);
+    setSlides(loadedSlides);
   }, []);
+
+  console.log(slides);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const prevSlide = () => {
@@ -237,7 +239,7 @@ function CollectionsGrid({collections}) {
       {collections.map((collection, index) => {
         return (
           <div key={index} className="my-12 w-[400px] md:w-full">
-            <h1 className="mx-2 my-0 font-lexend font-bold tracking-tighter text-start capitalize text-4xl md:text-5xl">
+            <h1 className="mx-2 my-0 font-lexend font-bold tracking-tighter text-start capitalize text-5xl">
               {collection.node.title}
             </h1>
             <p className="mt-2 mb-4 mx-3 font-inter font-light text-start">
