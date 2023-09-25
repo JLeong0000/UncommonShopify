@@ -14,7 +14,7 @@ import FaqProduct from '~/components/FaqProduct';
 import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs';
 
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data.product.title}`}];
+  return [{title: `The Uncommon Level | ${data.product.title}`}];
 };
 
 // image import
