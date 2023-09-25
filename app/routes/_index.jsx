@@ -13,7 +13,8 @@ import FunctionIndex from '~/components/FunctionIndex';
 import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs';
 
 // Image import
-import commando from '../public/commandoVideo.mp4';
+import commandoVid from '../public/commandoVideo.mp4';
+import commandoGif from '../public/commandoVideo.gif';
 import product from '../public/Photos/product.jpg';
 import multilayer from '../public/icons/Multilayer.svg';
 import water from '../public/icons/Water.svg';
@@ -141,13 +142,13 @@ export default function Homepage() {
     <div>
       <div className="flex flex-col max-w-[1200px] p-0 mx-auto items-center">
         <video
-          src={commando}
-          className="w-full"
+          src={commandoVid}
+          className="w-full hidden sm:block"
           loop
           autoPlay
-          preload="auto"
           muted
         ></video>
+        <img src={commandoGif} className="w-full block sm:hidden"></img>
         <span className="flex justify-center font-inter font-black text-3xl mt-12 md:tracking-[0.2em]">
           ///////////////////////////////
         </span>
