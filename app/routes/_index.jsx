@@ -143,11 +143,10 @@ export default function Homepage() {
         <video
           src={commando}
           className="w-full"
-          loop=""
-          autoplay=""
+          loop
+          autoPlay
           preload="auto"
-          muted=""
-          playsinline=""
+          muted
         ></video>
         <span className="flex justify-center font-inter font-black text-3xl mt-12 md:tracking-[0.2em]">
           ///////////////////////////////
