@@ -13,7 +13,7 @@ import FunctionIndex from '~/components/FunctionIndex';
 import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs';
 
 // Image import
-import commando from '../public/commandoVideo.mp4';
+// import commando from '../public/commandoVideo.mp4';
 import product from '../public/Photos/product.jpg';
 import multilayer from '../public/icons/Multilayer.svg';
 import water from '../public/icons/Water.svg';
@@ -124,7 +124,7 @@ export default function Homepage() {
   return (
     <div>
       <div className="flex flex-col max-w-[1200px] p-0 mx-auto items-center">
-        <video src={commando} className="w-full" autoPlay loop></video>
+        {/* <video src={commando} className="w-full" autoPlay loop></video> */}
         <span className="flex justify-center font-inter font-black text-3xl mt-12 md:tracking-[0.2em]">
           ///////////////////////////////
         </span>
@@ -277,7 +277,7 @@ function ProductItem({product, loading}) {
             className="p-2 object-contain"
           />
         )}
-        <div className="flex flex-col pb-2 px-2 justify-between md:pb-16 md:text-start md:justify-end">
+        <div className="flex flex-col pb-2 px-2 justify-between md:pb-20 md:text-start md:justify-end">
           <h4 className="font-lexend font-bold tracking-tighter m-0 text-lg md:text-2xl capitalize">
             {product.title}
           </h4>

@@ -12,7 +12,7 @@ export function Header({header, isLoggedIn, cart}) {
       <div className="flex items-center justify-between px-4 mx-auto max-w-[1080px]">
         <div className="flex space-x-12 items-center">
           <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-            <img src={logo} alt="" width={150} className="h-full" />
+            <img src={logo} alt="" width={200} className="h-full" />
           </NavLink>
           <NavLink prefetch="intent" style={activeLinkStyle} to="/ourStory">
             <span className="text-white font-inter font-medium">Our Story</span>
