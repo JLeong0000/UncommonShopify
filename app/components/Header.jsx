@@ -7,6 +7,7 @@ import logo from '../public/logosmall.png';
 
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
+  console.log(header);
   return (
     <header className="bg-[rgba(19,19,19,0.7)] py-2 sticky top-0">
       <div className="flex items-center justify-between px-4 mx-auto max-w-[1080px]">
