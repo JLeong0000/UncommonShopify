@@ -17,7 +17,7 @@ To use this repository, you need the following installed locally:
 
 Required Node.js version 16.14.0 or higher
 
-- You can clone this repository and get to work.
+- You can fork this repository and get to work.
 
 Remember to install the dependencies
 ```bash
